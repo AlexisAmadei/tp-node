@@ -1,24 +1,18 @@
 // App.js - Utilisation des opérations CRUD avec Knex
 
-const db = require('./userModel');
-
+const userdb = require('./userBackend/userModel');
+const contentdb = require('./contentBackend/contentModel');
 async function main() {
-  // Create
-  await db.createUser('John Doe', 'john@example.com');
+  // create content
+  console.log(await contentdb.getAllContent());
 
-  // Read
-  const allUsers = await db.getAllUsers();
-  console.log('Tous les utilisateurs :', allUsers);
+  // delete content
+  // await contentdb.deleteContentById(1);
+  // console.log('Deleted content with id 1');
 
-  // Update
-  await db.updateUser(1, 'Jane Doe', 'jane@example.com');
-
-  // Read user by ID
-  const userById = await db.getUserById(1);
-  console.log('Utilisateur par ID :', userById);
-
-  // Delete
-  await db.deleteUser(1);
+  // update content
+  await contentdb.updateContent(1, 2, 'Edit du titre', 'Edit de la description');
+  process.exit(0);
 }
 
 main().catch(err => console.error(err));

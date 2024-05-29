@@ -5,20 +5,7 @@ const userModel = require('../userBackend/userModel');
 const authModel = require('./authModel');
 const md5 = require('md5');
 
-async function isAuthticated(res, res, next) {
-    const authId = req.headers['authorization'];
-    if (!authId) {
-        res.status(401).json({ message: 'Unauthorized' });
-    }
-    const auth = await authModel.getAuth(authId);
-    if (!auth) {
-        res.status(401).json({ message: 'Unauthorized' });
-    }
-    req.auth = auth.user_id;
-    next();
-}
-
-// Signup routes
+// Signup routes / ceate user
 router.post('/signup', async (req, res) => {
     const { name, email, password } = req.body;
     const cryptPwd = md5(password);
@@ -36,7 +23,7 @@ router.post('/signup', async (req, res) => {
     }
 });
 
-// Signin routes
+// Signin routes / login
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     const cryptPwd = md5(password);
@@ -57,6 +44,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
+// Logout routes / kill auth
 router.post('/logout', async (req, res) => {
     const { id } = req.body;
     try {

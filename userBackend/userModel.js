@@ -1,4 +1,4 @@
-// db.js - Fichier pour gérer les opérations CRUD avec Knex
+// npm install knex sqlite3
 const knex = require('knex')(require('../knexfile')['development']);
 
 // Create
@@ -37,5 +37,3 @@ module.exports = {
   updateUser,
   deleteUser
 };
-
-// npm install knex sqlite3
