@@ -21,8 +21,7 @@ async function createTable() {
       await knex.schema.createTable('auth', table => {
         table.increments('id').primary();
         table.integer('user_id');
-        table.date('date');
-        // table.timestamp('date').defaultTo(knex.fn.now());
+        table.date('date').defaultTo(knex.fn.now());
       });
       console.log('La table "auth" a été créée avec succès.');
     } else {
@@ -31,10 +30,10 @@ async function createTable() {
     if (!content) {
       await knex.schema.createTable('content', table => {
         table.increments('id').primary();
+        table.integer('user_id');
         table.string('title');
         table.string('description');
-        table.date('date');
-        table.integer('user_id');
+        table.date('date').defaultTo(knex.fn.now());
     });
       console.log('La table "content" a été créée avec succès.');
     } else {
@@ -43,11 +42,11 @@ async function createTable() {
     if (!reactions) {
       await knex.schema.createTable('reactions', table => {
         table.increments('id').primary();
+        table.integer('content_id');
         table.integer('user_id');
         table.string('comment');
-        table.integer('content_id');
-        table.date('date');
         table.boolean('like');
+        table.date('date');
       });
     } else {
       console.log('La table "reactions" existe déjà.');
